@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>EBSCO LSE Interviewee HTML / JavaScript challenge</title>
+    <script type="text/javascript">
+		function OpenTarget(search_link) {
+		if (search_link != "default")
+			{
+			popupWin = window.open(search_link,'open_window','menubar, toolbar, location, directories, status, scrollbars, resizable, dependent, width=800, height=600, left=0, top=0')
+			}
+		}
+
+		function jsDropDown(selectedsource) {
+			queryinput = document.getElementById("query");
+			if (selectedsource=="eds"){
+				queryinput.placeholder="Find books, journal articles and other publications";
+			}
+			if (selectedsource=="koha"){
+				queryinput.placeholder="Search for print books";
+			}
+			if (selectedsource=="ir"){
+				queryinput.placeholder="Find digital repository images";
+			}
+			if (selectedsource=="scholar"){
+			  queryinput.placeholder="Stand on the shoulders of giants";
+			}
+		}
+		
+		function searchPlus(sform) {
+			var searchTerm = document.sform.query.value;
+			searchTerm = encodeURIComponent(searchTerm);
+			source_selected = document.sform.SearchSource.value;
+			
+			switch (source_selected)
+			{
+				case "eds":
+					var basic_url = "http://search.ebscohost.com/login.aspx?&direct=true&scope=site&authtype=ip,guest&custid=ns190128&groupid=main&profid=eds";
+					var search_url = basic_url + "&bquery=" + searchTerm;
+					OpenTarget(search_url);
+				break;
+					
+				case "koha":
+					var basic_url = "http://opac.aeu.edu.my/cgi-bin/koha/opac-search.pl?";
+					var search_url = basic_url + "q=" + searchTerm;
+					OpenTarget(search_url);
+				break;
+						
+				case "ir":
+					var basic_url = "http://eprints.aeu.edu.my/cgi/search/simple?";
+					var search_url = basic_url + "q=" + searchTerm;
+					OpenTarget(search_url);
+				break;
+				
+				case "scholar":
+				  var basic_url = "https://scholar.google.com/";
+				  var search_url = basic_url + "scholar?hl=en&q=" + searchTerm;
+				  OpenTarget(search_url);
+				  break;
+			}
+		}
+    </script>
+</head>
+<body>
+
+    <img src="http://library.aeu.edu.my/images/logoaeu_small.png"/>
+    <br /> <br />
+   
+    <!-- START: ONE Search -->
+    <form name="sform" id="sform" action="javascript:searchPlus(this);">
+		<select name="SearchSource" onchange="jsDropDown(this.value)">
+			<option value="eds" selected="selected">Discovery</option>
+			<option value="koha">Koha</option>
+			<option value="ir">IR</option>
+			<option value="scholar"> Google Scholar</option>
+	    </select>
+
+        <!-- Authentication and Profile Values -->
+	    <input type="text" size="40" id="query" name="query" placeholder="Find books, journal articles and other publications">
+        <button type="submit">Search</button>
+    </form>
+    <!-- FINISH: ONE Search -->
+    <br/>
+
+    <p> Allie Flanary 17-12-16</p>
+
+    <ol id="searchHistory">
+	</ol>
+    <!-- START:BAHAGIAN FOOTER  -->
+    <footer>
+        <hr />
+        <h4>Developer Challenge Instructions</h4>
+        <p>
+            Part 1 (Basic html editing)
+            <ul>
+                <li>Replace the EBSCO logo with a library logo <a href="http://library.aeu.edu.my/images/logoaeu_small.png">http://library.aeu.edu.my/images/logoaeu_small.png</a>
+                <li>Difficulty level - Basic
+            </ul>
+            
+            Part 2 (Basic html updating)
+            <ul>
+                <li>Insert a paragraph with your name and today's date in DD-mm-YY format after the searchbox
+                <li>Difficulty level - Basic
+            </ul>
+
+            Part 3 (Basic JavaScript editing)
+            <ul>
+                <li>Extend the above searchbox to include a <a href="https://scholar.google.com">Google Scholar</a> option
+                <li>Difficulty level - Low
+            </ul>
+
+            
+            Part 4 (Basic JavaScript coding)
+            <ul>
+                <li>Make the searchbox field mandatory.
+                <li>Display an error message when the search button is pressed and the field is empty
+                <li>Difficulty level - Low
+            </ul>
+
+			
+            Part 5 (Basic JavaScript coding)
+            <ul>
+                <li>Add a "Search History" section to the page
+                <li>When the search is executed, add the search to a list on the page that shows which source was used and what search term was used
+                <li>Difficulty level - Medium
+            </ul>
+        </p>
+	</footer>
+    <!-- FINISH:BAHAGIAN FOOTER  -->
+
+  </body>
+</html>
